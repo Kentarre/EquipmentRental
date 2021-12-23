@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EquipmentRental.Api", "EquipmentRental.Api\EquipmentRental.Api.csproj", "{62BCB9D1-ABB4-4AFD-8268-FEF0FCB6CB26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EquipmentRental.Domain", "EquipmentRental.Domain\EquipmentRental.Domain.csproj", "{ECC2BB9F-DA79-44BE-B26A-B0B08D0FC54B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{62BCB9D1-ABB4-4AFD-8268-FEF0FCB6CB26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62BCB9D1-ABB4-4AFD-8268-FEF0FCB6CB26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62BCB9D1-ABB4-4AFD-8268-FEF0FCB6CB26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62BCB9D1-ABB4-4AFD-8268-FEF0FCB6CB26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECC2BB9F-DA79-44BE-B26A-B0B08D0FC54B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECC2BB9F-DA79-44BE-B26A-B0B08D0FC54B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECC2BB9F-DA79-44BE-B26A-B0B08D0FC54B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECC2BB9F-DA79-44BE-B26A-B0B08D0FC54B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
