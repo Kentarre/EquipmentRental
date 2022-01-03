@@ -9,7 +9,7 @@ namespace Domain.Models
 {
     public class Purchase
     {
-        public double Total { get; }
+        public decimal Total { get; }
         public int Bonuses { get; }
         private List<Item> Items { get; }
 
@@ -37,17 +37,17 @@ namespace Domain.Models
             });
         }
 
-        private double CalculatePrice(Item item)
+        private decimal CalculatePrice(Item item)
         {
             if (item.Days <= 0)
                 throw new Exception("Days count not valid");
 
             return item.Equipment.Type switch
             {
-                EquipmentType.Heavy => (int) FeeType.OneTime + (int) FeeType.Premium * item.Days,
-                EquipmentType.Regular => (int) FeeType.OneTime + (int) FeeType.Premium * 2 +
-                                         (int) FeeType.Regular * (item.Days - 2),
-                EquipmentType.Specialized => (int) FeeType.Premium * 3 + (int) FeeType.Regular * (item.Days - 3),
+                EquipmentType.Heavy => (decimal) FeeType.OneTime + (decimal) FeeType.Premium * item.Days,
+                EquipmentType.Regular => (decimal) FeeType.OneTime + (decimal) FeeType.Premium * 2 +
+                                         (decimal) FeeType.Regular * (item.Days - 2),
+                EquipmentType.Specialized => (decimal) FeeType.Premium * 3 + (decimal) FeeType.Regular * (item.Days - 3),
                 _ => throw new Exception("Unknown equipment type")
             };
         }
