@@ -1,26 +1,21 @@
 using System;
-using System.Collections.Generic;
-using System.Text.Json;
-using Domain.Interfaces;
 
-namespace Domain.Models
+namespace Domain.Models;
+
+public class Customer : IDomainModel
 {
-    public class Customer
-    {
-        public Guid Id { get; }
-        public Cart Cart { get; }
-        public string Name { get; }
+    public Guid Id { get; set; }
+    public string Name { get; set; }
 
-        public Customer(string name)
-        {
-            Name = name;
-            Id = new Guid("F1DE8A65-875A-4A4F-8F49-2F4BEDE048EA");
-            Cart = new Cart();
-        }
+    public static Customer Create(string name)
+    {
+        if (string.IsNullOrEmpty(name))
+            throw new ArgumentNullException(nameof(name));
         
-        public Purchase Checkout()
+        return new Customer
         {
-            return new(Cart.Items);
-        }
+            Id = Guid.NewGuid(),
+            Name = name
+        };
     }
 }

@@ -1,14 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Domain.Interfaces;
-using Domain.Models;
-using Domain.Services;
+using EquipmentRental.Data;
+using EquipmentRental.Data.Repositories;
+using EquipmentRental.Data.Repositories.Interfaces;
+using EquipmentRental.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,8 +27,9 @@ namespace EquipmentRental
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<ICustomerService, CustomerService>();
-            services.AddTransient<IEquipmentService, EquipmentService>();
+            services.AddDbContext<RentalDbContext>(c =>
+                c.UseSqlite($"Data Source={ApiConfig.DbPath}"));
+            services.AddTransient<IEquipmentRepository, EquipmentRepository>();
             
             services.AddControllers();
             services.AddSwaggerGen(c =>

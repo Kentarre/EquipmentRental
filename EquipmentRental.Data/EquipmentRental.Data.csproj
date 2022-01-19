@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentMigrator" Version="3.3.2" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
+      <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\EquipmentRental.Common\EquipmentRental.Common.csproj" />
+      <ProjectReference Include="..\EquipmentRental.Domain\EquipmentRental.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Entities" />
+    </ItemGroup>
+
+</Project>

@@ -1,6 +1,7 @@
 using System;
-using Domain.Interfaces;
+using System.Threading.Tasks;
 using Domain.Models;
+using EquipmentRental.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EquipmentRental.Controllers
@@ -9,53 +10,51 @@ namespace EquipmentRental.Controllers
     [Route("[controller]")]
     public class ShopController : Controller
     {
-        private readonly IEquipmentService _equipmentService;
-        private readonly ICustomerService _customerService;
+        private readonly IEquipmentRepository _equipmentRepository;
 
-        public ShopController(IEquipmentService equipmentService, ICustomerService customerService)
+        public ShopController(IEquipmentRepository equipmentRepository)
         {
-            _equipmentService = equipmentService;
-            _customerService = customerService;
+            _equipmentRepository = equipmentRepository;
         }
-        
+
         [HttpGet]
         [Route("equipment")]
-        public JsonResult GetAvailableEquipment()
+        public async Task<JsonResult> GetAvailableEquipment()
         {
-            var equipment = _equipmentService.GetAvailableEquipment();
+            var equipment = await _equipmentRepository.GetAllAsync();
             
             return Json(equipment);
         }
         
-        [HttpGet]
-        [Route("checkout")]
-        public JsonResult CheckOut(Guid customerId)
-        {
-            var customer = _customerService.GetCustomerById(customerId);
-            var purchase = customer.Checkout();
+        // [HttpGet]
+        // [Route("checkout")]
+        // public async Task<JsonResult> CheckOut(Guid customerId)
+        // {
+        //     var customer = await _customerService.GetCustomerByIdAsync(customerId);
+        //     var purchase = customer.Checkout();
+        //
+        //     return Json(new {purchase.Total, purchase.Bonuses});
+        // }
 
-            return Json(new {purchase.Total, purchase.Bonuses});
-        }
-
-        [HttpGet]
-        [Route("add")]
-        public JsonResult AddItem(Guid customerId, Guid id, int days)
-        {
-            var customer = _customerService.GetCustomerById(customerId);
-            var equipment = _equipmentService.GetItem(id);
-
-            var item = new Item(equipment, days);
-            
-            customer.Cart.Add(item);
-
-            return Json(new {Result = "Ok"});
-        }
-
-        [HttpGet]
-        [Route("state")]
-        public JsonResult GetState(Guid customerId)
-        {
-            return Json(_customerService.GetCustomerById(customerId));
-        }
+        // [HttpGet]
+        // [Route("add")]
+        // public async Task<JsonResult> AddItem(Guid customerId, Guid id, int days)
+        // {
+        //     var customer = await _customerService.GetCustomerByIdAsync(customerId);
+        //     var equipment = _equipmentService.GetItem(id);
+        //
+        //     var item = new Item(equipment, days);
+        //     
+        //     customer.Cart.Add(item);
+        //
+        //     return Json(new {Result = "Ok"});
+        // }
+        //
+        // [HttpGet]
+        // [Route("state")]
+        // public JsonResult GetState(Guid customerId)
+        // {
+        //     return Json(_customerService.GetCustomerByIdAsync(customerId));
+        // }
     }
 }

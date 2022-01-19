@@ -1,31 +1,48 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Domain.Helpers;
 
-namespace Domain.Models
+namespace Domain.Models;
+
+public class Cart : IDomainModel
 {
-    public class Cart
+    public Guid Id { get; set; }
+    public Guid CustomerId { get; set; }
+    public readonly List<Product> Products = new();
+    public decimal TotalPrice => Products.Sum(x => x.Price);
+    public decimal TotalBonuses => Products.Sum(x => x.Bonus);
+
+    public static Cart Create(Customer customer)
     {
-        public List<Item> Items { get; }
+        if (customer == null)
+            throw new ArgumentNullException(nameof(customer));
 
-        public Cart()
+        return new Cart
         {
-            Items = new List<Item>();
-        }
-        
-        public void Add(Item item)
-        {
-            if (item.Days <= 0)
-                throw new Exception("Days input invalid");
-            
-            if (item.Equipment == null)
-                throw new Exception("Equipment cant be null");
+            Id = Guid.NewGuid(),
+            CustomerId = customer.Id,
+        };
+    }
 
-            Items.Add(item);
-        }
+    public void Add(Product product)
+    {
+        if (product == null)
+            throw new ArgumentNullException(nameof(product));
 
-        public void Remove(Item item)
-        {
-            Items.RemoveAll(x => x == item);
-        }
+        Products.Add(product);
+    }
+
+    public void Remove(Product product)
+    {
+        if (product == null)
+            throw new ArgumentNullException(nameof(product));
+
+        Products.Remove(product);
+    }
+
+    public void Clear()
+    {
+        Products.Clear();
     }
 }
