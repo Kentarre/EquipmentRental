@@ -41,7 +41,6 @@ namespace EquipmentRental
             services.AddScoped<IPurchaseRepository, PurchaseRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
 
-            services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<ICheckoutService, CheckoutService>();
 
