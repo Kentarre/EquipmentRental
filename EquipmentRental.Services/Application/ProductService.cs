@@ -14,9 +14,9 @@ public class ProductService : IProductService
         _productRepository = productRepository;
     }
 
-    public async Task<Product> Create(Guid customerId, Equipment? equipment, int days = 0)
+    public async Task<Product> Create(Cart cart, Equipment? equipment, int days = 0)
     {
-        var product = Product.Create(customerId, equipment, days);
+        var product = Product.Create(cart, equipment, days);
 
         await _productRepository.AddAsync(product);
 
@@ -25,6 +25,11 @@ public class ProductService : IProductService
 
     public async Task<Product> Get(Guid productId)
     {
-        return await _productRepository.GetAsync(productId) ?? throw new Exception();
+        return await _productRepository.GetAsync(productId);
+    }
+
+    public async Task Add(Product product)
+    {
+        await _productRepository.AddAsync(product);
     }
 }

@@ -17,27 +17,27 @@ public class _202201191717_FillTables : Migration
         new Equipment
         {
             Name = "Caterpillar",
-            Type = EquipmentType.Heavy,
+            EquipmentType = EquipmentType.Heavy,
         },
         new Equipment
         {
             Name = "Kamaz",
-            Type = EquipmentType.Regular,
+            EquipmentType = EquipmentType.Regular,
         },
         new Equipment
         {
             Name = "Komatsu",
-            Type = EquipmentType.Heavy,
+            EquipmentType = EquipmentType.Heavy,
         },
         new Equipment
         {
             Name = "Volvo",
-            Type = EquipmentType.Regular,
+            EquipmentType = EquipmentType.Regular,
         },
         new Equipment
         {
             Name = "Bosch",
-            Type = EquipmentType.Specialized
+            EquipmentType = EquipmentType.Specialized
         },
     };
 
@@ -49,7 +49,7 @@ public class _202201191717_FillTables : Migration
 
         foreach (var equipment in _equipmentList)
             Insert.IntoTable("Equipment").Row(new
-                {Id = Guid.NewGuid(), Type = (int) equipment.Type, Name = equipment.Name});
+                {Id = Guid.NewGuid(), EquipmentType = (int) equipment.EquipmentType, Name = equipment.Name});
     }
 
     public override void Down()

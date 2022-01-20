@@ -2,6 +2,10 @@ using EquipmentRental.Data;
 using EquipmentRental.Data.Repositories;
 using EquipmentRental.Data.Repositories.Interfaces;
 using EquipmentRental.Helpers;
+using EquipmentRental.Services.Application;
+using EquipmentRental.Services.Application.Interfaces;
+using EquipmentRental.Services.Domain;
+using EquipmentRental.Services.Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,8 +33,18 @@ namespace EquipmentRental
         {
             services.AddDbContext<RentalDbContext>(c =>
                 c.UseSqlite($"Data Source={ApiConfig.DbPath}"));
-            services.AddTransient<IEquipmentRepository, EquipmentRepository>();
             
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<ICartRepository, CartRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IEquipmentRepository, EquipmentRepository>();
+            services.AddScoped<IPurchaseRepository, PurchaseRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICartService, CartService>();
+            services.AddScoped<ICheckoutService, CheckoutService>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

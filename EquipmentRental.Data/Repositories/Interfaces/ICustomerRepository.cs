@@ -7,5 +7,4 @@ namespace EquipmentRental.Data.Repositories.Interfaces;
 
 public interface ICustomerRepository : IRepository<Customer>
 {
-    Task<Customer> FindById(Guid customerId);
 }

@@ -9,7 +9,8 @@ public class _202201191657_InitialMigration : Migration
     {
         Create.Table("Cart")
             .WithColumn("Id").AsGuid()
-            .WithColumn("CustomerId").AsGuid().ForeignKey();
+            .WithColumn("CustomerId").AsGuid()
+            .WithColumn("CreatedOn").AsDateTime();
 
         Create.Table("Customer")
             .WithColumn("Id").AsGuid()
@@ -17,7 +18,7 @@ public class _202201191657_InitialMigration : Migration
 
         Create.Table("Product")
             .WithColumn("Id").AsGuid()
-            .WithColumn("CustomerId").AsGuid()
+            .WithColumn("CartId").AsGuid()
             .WithColumn("Name").AsString()
             .WithColumn("EquipmentType").AsInt32()
             .WithColumn("Days").AsInt32()
@@ -28,11 +29,11 @@ public class _202201191657_InitialMigration : Migration
         Create.Table("Purchase")
             .WithColumn("Id").AsGuid()
             .WithColumn("CreatedOn").AsDateTime()
-            .WithColumn("CustomerId").AsGuid().ForeignKey();
+            .WithColumn("CartId").AsGuid();
 
         Create.Table("Equipment")
             .WithColumn("Id").AsGuid()
-            .WithColumn("Type").AsInt32()
+            .WithColumn("EquipmentType").AsInt32()
             .WithColumn("Name").AsString();
     }
 

@@ -7,7 +7,7 @@ public class Purchase : IDomainModel
 {
     public Guid Id { get; set; }
     public DateTime CreatedOn { get; set; }
-    public Guid CustomerId { get; set; }
+    public Guid CartId { get; set; }
     public List<Product> PurchasedProducts { get; set; }
 
     public static Purchase Create(Cart cart)
@@ -16,7 +16,7 @@ public class Purchase : IDomainModel
         {
             Id = Guid.NewGuid(),
             CreatedOn = DateTime.Now,
-            CustomerId = cart.CustomerId,
+            CartId = cart.Id,
             PurchasedProducts = cart.Products
         };
     }

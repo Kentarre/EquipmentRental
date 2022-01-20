@@ -1,14 +1,15 @@
 using Domain.Models;
 using EquipmentRental.Data.Repositories;
+using EquipmentRental.Data.Repositories.Interfaces;
 using EquipmentRental.Services.Domain.Interfaces;
 
 namespace EquipmentRental.Services.Domain;
 
 public class CheckoutService : ICheckoutService
 {
-    private readonly PurchaseRepository _purchaseRepository;
+    private readonly IPurchaseRepository _purchaseRepository;
 
-    public CheckoutService(PurchaseRepository purchaseRepository)
+    public CheckoutService(IPurchaseRepository purchaseRepository)
     {
         _purchaseRepository = purchaseRepository;
     }

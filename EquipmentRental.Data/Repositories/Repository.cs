@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Domain.Models;
 using EquipmentRental.Data.Repositories.Interfaces;
@@ -7,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EquipmentRental.Data.Repositories;
 
-public class Repository<T> : IRepository<T> where T: class, IDomainModel
+public class Repository<T> : IRepository<T> where T : class, IDomainModel
 {
     private readonly RentalDbContext _context;
     protected readonly DbSet<T> DbSet;
@@ -15,9 +16,9 @@ public class Repository<T> : IRepository<T> where T: class, IDomainModel
     public Repository(RentalDbContext context)
     {
         _context = context;
-        DbSet =  context.Set<T>();
+        DbSet = context.Set<T>();
     }
-    
+
     public async Task<List<T>> GetAllAsync()
     {
         return await DbSet.ToListAsync();
@@ -25,7 +26,7 @@ public class Repository<T> : IRepository<T> where T: class, IDomainModel
 
     public async Task<T?> GetAsync(Guid id)
     {
-        return await DbSet.FirstOrDefaultAsync(x => x.Id == id);
+        return (await DbSet.ToListAsync()).FirstOrDefault(x => x.Id == id);
     }
 
     public async Task<T> AddAsync(T entity)
@@ -46,5 +47,11 @@ public class Repository<T> : IRepository<T> where T: class, IDomainModel
         _context.Entry(entity).State = EntityState.Modified;
         await _context.SaveChangesAsync();
         return entity;
+    }
+
+    public async Task RemoveAsync(T entity)
+    {
+        DbSet.Remove(entity);
+        await _context.SaveChangesAsync();
     }
 }

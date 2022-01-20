@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using EquipmentRental.Common.Dtos;
 using EquipmentRental.Common.Models;
@@ -26,7 +27,7 @@ public class EquipmentRepository : IEquipmentRepository
 
     public async Task<Equipment?> GetAsync(Guid id)
     {
-        return await DbSet.FirstOrDefaultAsync(x => x.Id == id);
+        return (await DbSet.ToListAsync()).FirstOrDefault(x => x.Id == id);
     }
 
     public async Task<Equipment> AddAsync(Equipment entity)

@@ -9,7 +9,8 @@ public class Cart : IDomainModel
 {
     public Guid Id { get; set; }
     public Guid CustomerId { get; set; }
-    public readonly List<Product> Products = new();
+    public List<Product> Products { get; set; } = new();
+    public DateTime CreatedOn { get; set; }
     public decimal TotalPrice => Products.Sum(x => x.Price);
     public decimal TotalBonuses => Products.Sum(x => x.Bonus);
 
@@ -22,9 +23,10 @@ public class Cart : IDomainModel
         {
             Id = Guid.NewGuid(),
             CustomerId = customer.Id,
+            CreatedOn = DateTime.Now
         };
     }
-
+ 
     public void Add(Product product)
     {
         if (product == null)

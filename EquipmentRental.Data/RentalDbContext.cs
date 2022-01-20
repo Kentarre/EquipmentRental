@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+﻿using System;
+using Domain.Models;
 using EquipmentRental.Common.Dtos;
 using EquipmentRental.Common.Models;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ namespace EquipmentRental.Data
         public DbSet<Customer> Customer { get; set; }
         public DbSet<Equipment> Equipment { get; set; }
         public DbSet<Purchase> Purchase { get; set; }
+        public DbSet<Product> Product { get; set; }
         
         public RentalDbContext(DbContextOptions options) : base(options)
         {
@@ -21,10 +23,12 @@ namespace EquipmentRental.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Cart>()
-                .HasMany<Product>(x => x.Products);
+                .HasMany<Product>(x => x.Products)
+                .WithOne();
 
             modelBuilder.Entity<Purchase>()
-                .HasMany<Product>(x => x.PurchasedProducts);
+                .HasMany<Product>(x => x.PurchasedProducts)
+                .WithOne();
         }
     }
 }
